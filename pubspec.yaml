@@ -1,6 +1,6 @@
 name: firebase_upgrader
 description: "A Flutter package for managing feature flags using Firebase Realtime Database."
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/karrarfalih/firebase_upgrader
 
 environment:

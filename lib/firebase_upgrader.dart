@@ -63,8 +63,8 @@ class _FirebaseUpgraderState extends State<FirebaseUpgrader> {
   late final storeLink = FeatureFlag(
     key: 'storeLink',
     initialValue: Platform.isAndroid
-        ? widget.playStoreLink ?? ''
-        : widget.appStoreLink ?? '',
+        ? widget.playStoreLink ?? 'https://play.google.com/store/'
+        : widget.appStoreLink ?? 'https://www.apple.com/app-store/',
   );
 
   bool _shouldUpdate(String v1, String v2) {
@@ -93,21 +93,39 @@ class _FirebaseUpgraderState extends State<FirebaseUpgrader> {
 
   _checkOptionalUpdate() async {
     await Future.delayed(const Duration(seconds: 3));
-    if (storeLink.value.isEmpty) return;
     final packageInfo = await PackageInfo.fromPlatform();
     if (_shouldUpdate(minVersion.value, packageInfo.version)) return;
     currentVersion.listen((currentVersion) {
       if (_shouldUpdate(currentVersion, packageInfo.version)) {
         if (widget._navigationKey.currentContext == null) return;
         if (!widget.useDialog) {
-          Navigator.of(widget._navigationKey.currentContext!).pushReplacement(
+          Navigator.of(widget._navigationKey.currentContext!).push(
             MaterialPageRoute(
               builder: (context) {
                 return widget.optionalUpgradeScreen ??
-                    const Scaffold(
-                      body: Center(
-                        child:
-                            Text('Please update the app to the latest version'),
+                    Scaffold(
+                      body: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Update App?'),
+                          Text(
+                              'A new version is available. Do you want to update?'),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.black,
+                            ),
+                            child: Text(widget.optionalButtonCancelText ?? 'Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              launchUrl(Uri.parse(storeLink.value));
+                            },
+                            child: Text(widget.optionalButtonText ?? 'Update'),
+                          ),
+                        ],
                       ),
                     );
               },
@@ -129,6 +147,9 @@ class _FirebaseUpgraderState extends State<FirebaseUpgrader> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                      ),
                       child: Text(widget.optionalButtonCancelText ?? 'Cancel'),
                     ),
                     TextButton(
