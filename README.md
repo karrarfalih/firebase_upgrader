@@ -18,7 +18,7 @@ Add `firebase_upgrader` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  firebase_upgrader: ^1.0.1
+  firebase_upgrader: ^1.0.2
 ```
 
 Run flutter pub get to install the package.
@@ -45,6 +45,7 @@ builder: FirebaseUpgrader.builder,
   "features": {
     "minVersion": "1.23.45",
     "currentVersion": "1.23.45",
+    "storeLink": "your.store.link",
   }
 }
 ```
@@ -60,6 +61,10 @@ You can also specify different version according to the platform as follow:
       "ios": "1.23.45",
       "android": "1.23.45",
     },
+    "storeLink": {
+      "ios": "your.store.link",
+      "android": "your.store.link",
+    }
   }
 }
 ```

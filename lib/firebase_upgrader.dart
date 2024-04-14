@@ -95,7 +95,7 @@ class _FirebaseUpgraderState extends State<FirebaseUpgrader> {
     await Future.delayed(const Duration(seconds: 3));
     if (storeLink.value.isEmpty) return;
     final packageInfo = await PackageInfo.fromPlatform();
-    if (_shouldUpdate(currentVersion.value, packageInfo.version)) return;
+    if (_shouldUpdate(minVersion.value, packageInfo.version)) return;
     currentVersion.listen((currentVersion) {
       if (_shouldUpdate(currentVersion, packageInfo.version)) {
         if (widget._navigationKey.currentContext == null) return;
