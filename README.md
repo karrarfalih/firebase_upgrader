@@ -18,7 +18,7 @@ Add `firebase_upgrader` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  firebase_upgrader: ^1.0.0
+  firebase_upgrader: ^1.0.1
 ```
 
 Run flutter pub get to install the package.

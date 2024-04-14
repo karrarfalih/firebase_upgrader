@@ -59,7 +59,7 @@ class FirebaseUpgrader extends StatefulWidget {
 
 class _FirebaseUpgraderState extends State<FirebaseUpgrader> {
   final currentVersion = FeatureFlag(key: 'currentVersion', initialValue: '0');
-  final minVersion = FeatureFlag(key: 'minVersion', initialValue: '1.0.43');
+  final minVersion = FeatureFlag(key: 'minVersion', initialValue: '0');
   late final storeLink = FeatureFlag(
     key: 'storeLink',
     initialValue: Platform.isAndroid
